@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { AnimatedSection, StaggerContainer, staggerItemVariants } from '@/components/ui/animated-section'
 
 interface RoadmapPhase {
   number: string
@@ -183,122 +184,105 @@ export default function RoadmapSection() {
       <div className="relative z-10 w-full max-w-[1530px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* ================= HEADER: ROCKET ICON + QYONA ROADMAP TITLE + SUBTITLE ================= */}
-        <div className="flex flex-col items-center text-center mb-10 sm:mb-14 lg:mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center justify-center gap-3 sm:gap-4 mb-2.5"
-          >
-            {/* ROCKET ICON FROM PUBLIC/ICONS */}
-            <div className="relative w-9 h-9 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex-shrink-0">
-              <Image
-                src="/icons/rockett (1).png"
-                alt="Rocket"
-                width={56}
-                height={56}
-                className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(168,85,247,0.95)]"
-              />
+        <AnimatedSection direction="up" amount={0.15}>
+          <div className="flex flex-col items-center text-center mb-10 sm:mb-14 lg:mb-16">
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2.5">
+              {/* ROCKET ICON FROM PUBLIC/ICONS */}
+              <div className="relative w-9 h-9 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex-shrink-0">
+                <Image
+                  src="/icons/rockett (1).png"
+                  alt="Rocket"
+                  width={56}
+                  height={56}
+                  className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(168,85,247,0.95)]"
+                />
+              </div>
+
+              {/* MAIN TITLE (Custom Font Bold) */}
+              <h2 className="font-spock font-black uppercase text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-wider text-white drop-shadow-[0_0_25px_rgba(168,85,247,0.85)]">
+                QYONA ROADMAP
+              </h2>
             </div>
 
-            {/* MAIN TITLE (Custom Font Bold) */}
-            <h2 className="font-spock font-black uppercase text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-wider text-white drop-shadow-[0_0_25px_rgba(168,85,247,0.85)]">
-              QYONA ROADMAP
-            </h2>
-          </motion.div>
-
-          {/* SUBTITLE */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="font-spock font-bold text-xs sm:text-sm md:text-base text-[#cbd5e1] tracking-[0.2em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
-          >
-            TOGETHER, WE EXPLORE. TOGETHER, WE BUILD.
-          </motion.p>
-        </div>
+            {/* SUBTITLE */}
+            <p className="font-spock font-bold text-xs sm:text-sm md:text-base text-[#cbd5e1] tracking-[0.2em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              TOGETHER, WE EXPLORE. TOGETHER, WE BUILD.
+            </p>
+          </div>
+        </AnimatedSection>
 
         {/* ================= ROADMAP CONTAINER FRAME ================= */}
-        <motion.div
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative rounded-[32px] sm:rounded-[40px] overflow-hidden bg-[#0c0420]/75 backdrop-blur-2xl border border-purple-500/35 shadow-[0_25px_80px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.2),0_0_50px_rgba(157,78,221,0.25)] p-4 sm:p-6 lg:p-7 xl:p-8 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-purple-400/60 before:to-transparent"
-        >
-          {/* DESKTOP CONNECTING LINE PASSING THROUGH PHASE BADGES (LG ONLY) */}
-          <div className="hidden lg:block absolute top-[68px] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-purple-500/30 via-[#a855f7] to-purple-500/30 shadow-[0_0_14px_#a855f7] z-0 pointer-events-none" />
+        <AnimatedSection direction="up" amount={0.1} delay={0.1}>
+          <div className="relative rounded-[32px] sm:rounded-[40px] overflow-hidden bg-[#0c0420]/75 backdrop-blur-2xl border border-purple-500/35 shadow-[0_25px_80px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.2),0_0_50px_rgba(157,78,221,0.25)] p-4 sm:p-6 lg:p-7 xl:p-8 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-purple-400/60 before:to-transparent">
+            {/* DESKTOP CONNECTING LINE PASSING THROUGH PHASE BADGES (LG ONLY) */}
+            <div className="hidden lg:block absolute top-[68px] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-purple-500/30 via-[#a855f7] to-purple-500/30 shadow-[0_0_14px_#a855f7] z-0 pointer-events-none" />
 
-          {/* 5 PHASE CARDS GRID */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-6 lg:gap-3.5 xl:gap-4 relative z-10">
-            {roadmapPhases.map((phase, index) => (
-              <motion.div
-                key={phase.number}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -6 }}
-                className="group relative flex flex-col items-center text-left rounded-[24px] overflow-hidden bg-[#070118]/85 border border-purple-500/30 hover:border-purple-400/70 transition-all duration-300 p-4 sm:p-5 hover:shadow-[0_15px_40px_rgba(168,85,247,0.3)]"
-              >
-                {/* 1. PHASE LABEL */}
-                <span className="font-spock font-bold text-[11px] sm:text-xs text-[#a855f7] tracking-[0.2em] uppercase mb-2 drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]">
-                  {phase.phaseLabel}
-                </span>
-
-                {/* 2. HEXAGON NUMBER BADGE */}
-                <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center mb-3">
-                  <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-[#a855f7] group-hover:text-[#c084fc] transition-colors duration-300 drop-shadow-[0_0_14px_rgba(168,85,247,0.85)]">
-                    <polygon points="50 3, 93 25, 93 75, 50 97, 7 75, 7 25" fill="#12052b" stroke="currentColor" strokeWidth="4" />
-                  </svg>
-                  <span className="relative z-10 font-spock font-black text-xl sm:text-2xl text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]">
-                    {phase.number}
+            {/* 5 PHASE CARDS GRID */}
+            <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-6 lg:gap-3.5 xl:gap-4 relative z-10" staggerDelay={0.09}>
+              {roadmapPhases.map((phase) => (
+                <motion.div
+                  key={phase.number}
+                  variants={staggerItemVariants}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  className="group relative flex flex-col items-center text-left rounded-[24px] overflow-hidden bg-[#070118]/85 border border-purple-500/30 hover:border-purple-400/70 transition-all duration-300 p-4 sm:p-5 hover:shadow-[0_15px_40px_rgba(168,85,247,0.3)]"
+                >
+                  {/* 1. PHASE LABEL */}
+                  <span className="font-spock font-bold text-[11px] sm:text-xs text-[#a855f7] tracking-[0.2em] uppercase mb-2 drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]">
+                    {phase.phaseLabel}
                   </span>
-                </div>
 
-                {/* 3. PHASE TITLE */}
-                <h3 className="font-spock font-black text-base sm:text-lg lg:text-base xl:text-lg text-white uppercase tracking-wider text-center mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] group-hover:text-[#c084fc] transition-colors duration-300">
-                  {phase.title}
-                </h3>
+                  {/* 2. HEXAGON NUMBER BADGE */}
+                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center mb-3">
+                    <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-[#a855f7] group-hover:text-[#c084fc] transition-colors duration-300 drop-shadow-[0_0_14px_rgba(168,85,247,0.85)]">
+                      <polygon points="50 3, 93 25, 93 75, 50 97, 7 75, 7 25" fill="#12052b" stroke="currentColor" strokeWidth="4" />
+                    </svg>
+                    <span className="relative z-10 font-spock font-black text-xl sm:text-2xl text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]">
+                      {phase.number}
+                    </span>
+                  </div>
 
-                {/* 4. OPTIONAL STATUS BADGE */}
-                {phase.status && (
-                  <span className="px-3 py-0.5 rounded-full text-[10px] sm:text-[11px] font-spock font-bold uppercase tracking-wider bg-purple-500/20 text-[#d8b4fe] border border-purple-400/40 shadow-[0_0_12px_rgba(168,85,247,0.4)] mb-3">
-                    {phase.status}
-                  </span>
-                )}
-                {!phase.status && <div className="h-6 mb-1" />}
+                  {/* 3. PHASE TITLE */}
+                  <h3 className="font-spock font-black text-base sm:text-lg lg:text-base xl:text-lg text-white uppercase tracking-wider text-center mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] group-hover:text-[#c084fc] transition-colors duration-300">
+                    {phase.title}
+                  </h3>
 
-                {/* 5. CHARACTER IMAGE FROM PUBLIC/ROADMAP (NEWER AVIF IMAGES WITH MORE HEIGHT) */}
-                <div className="relative w-full h-[260px] sm:h-[320px] md:h-[340px] lg:h-[260px] xl:h-[300px] 2xl:h-[350px] rounded-[20px] overflow-hidden mb-5 bg-[#0a021c]">
-                  <Image
-                    src={phase.image}
-                    alt={phase.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
-                  />
-                  {/* Subtle bottom gradient overlay for smooth blending */}
-                  <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#070118] via-[#070118]/40 to-transparent pointer-events-none" />
-                </div>
+                  {/* 4. OPTIONAL STATUS BADGE */}
+                  {phase.status && (
+                    <span className="px-3 py-0.5 rounded-full text-[10px] sm:text-[11px] font-spock font-bold uppercase tracking-wider bg-purple-500/20 text-[#d8b4fe] border border-purple-400/40 shadow-[0_0_12px_rgba(168,85,247,0.4)] mb-3">
+                      {phase.status}
+                    </span>
+                  )}
+                  {!phase.status && <div className="h-6 mb-1" />}
 
-                {/* 6. BULLET POINTS LIST */}
-                <ul className="w-full flex flex-col gap-2 mt-1">
-                  {phase.items.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#a855f7] shadow-[0_0_8px_#a855f7] mt-1.5 flex-shrink-0" />
-                      <span className="font-sans font-normal text-xs sm:text-xs xl:text-[13px] text-[#cbd5e1] leading-snug">
-                        {item}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
+                  {/* 5. CHARACTER IMAGE FROM PUBLIC/ROADMAP (NEWER AVIF IMAGES WITH MORE HEIGHT) */}
+                  <div className="relative w-full h-[260px] sm:h-[320px] md:h-[340px] lg:h-[260px] xl:h-[300px] 2xl:h-[350px] rounded-[20px] overflow-hidden mb-5 bg-[#0a021c]">
+                    <Image
+                      src={phase.image}
+                      alt={phase.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                    />
+                    {/* Subtle bottom gradient overlay for smooth blending */}
+                    <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#070118] via-[#070118]/40 to-transparent pointer-events-none" />
+                  </div>
+
+                  {/* 6. BULLET POINTS LIST */}
+                  <ul className="w-full flex flex-col gap-2 mt-1">
+                    {phase.items.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#a855f7] shadow-[0_0_8px_#a855f7] mt-1.5 flex-shrink-0" />
+                        <span className="font-sans font-normal text-xs sm:text-xs xl:text-[13px] text-[#cbd5e1] leading-snug">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </StaggerContainer>
           </div>
-        </motion.div>
+        </AnimatedSection>
       </div>
     </section>
   )

@@ -14,6 +14,7 @@ import {
   Key, 
   Send 
 } from 'lucide-react'
+import { AnimatedSection, StaggerContainer, staggerItemVariants } from '@/components/ui/animated-section'
 
 // Custom X (Twitter) Icon Component
 function XIcon({ className = 'w-5 h-5' }: { className?: string }) {
@@ -162,169 +163,162 @@ export default function WhitelistSection() {
             <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 items-center mb-6">
               
               {/* TEXT CONTENT (LEFT) */}
-              <motion.div
-                initial={{ opacity: 0, x: -25 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="md:col-span-7 flex flex-col items-start"
-              >
-                {/* SUB-LABEL */}
-                <span className="font-spock font-bold text-xs sm:text-sm text-[#a855f7] tracking-[0.2em] uppercase mb-2 drop-shadow-[0_0_12px_rgba(168,85,247,0.8)]">
-                  QYONA — WHITELIST
-                </span>
+              <div className="md:col-span-7">
+                <AnimatedSection direction="left" amount={0.15}>
+                  {/* SUB-LABEL */}
+                  <span className="font-spock font-bold text-xs sm:text-sm text-[#a855f7] tracking-[0.2em] uppercase mb-2 drop-shadow-[0_0_12px_rgba(168,85,247,0.8)] block">
+                    QYONA — WHITELIST
+                  </span>
 
-                {/* MAIN TITLE (Animated Gradient Title) */}
-                <motion.h2
-                  animate={{
-                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                  className="font-spock font-black uppercase text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-wide bg-gradient-to-r from-white via-[#f3e8ff] via-[#c084fc] via-[#a855f7] via-[#e9d5ff] to-white bg-[length:250%_auto] bg-clip-text text-transparent mb-4 drop-shadow-[0_0_25px_rgba(168,85,247,0.65)]"
-                >
-                  THE JOURNEY<br />BEGINS
-                </motion.h2>
+                  {/* MAIN TITLE (Animated Gradient Title) */}
+                  <motion.h2
+                    animate={{
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    }}
+                    className="font-spock font-black uppercase text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-wide bg-gradient-to-r from-white via-[#f3e8ff] via-[#c084fc] via-[#a855f7] via-[#e9d5ff] to-white bg-[length:250%_auto] bg-clip-text text-transparent mb-4 drop-shadow-[0_0_25px_rgba(168,85,247,0.65)]"
+                  >
+                    THE JOURNEY<br />BEGINS
+                  </motion.h2>
 
-                {/* PARAGRAPH 1 */}
-                <p className="font-sans font-normal text-sm sm:text-base text-[#cbd5e1] leading-relaxed mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  QYONA is a community-driven Web3 universe built around exploration, storytelling and participation.
-                </p>
+                  {/* PARAGRAPH 1 */}
+                  <p className="font-sans font-normal text-sm sm:text-base text-[#cbd5e1] leading-relaxed mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    QYONA is a community-driven Web3 universe built around exploration, storytelling and participation.
+                  </p>
 
-                {/* PARAGRAPH 2 */}
-                <p className="font-sans font-normal text-sm sm:text-base text-[#cbd5e1] leading-relaxed mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  The QYONA journey combines an evolving story, community missions, digital culture, and the QYN token ecosystem.
-                </p>
+                  {/* PARAGRAPH 2 */}
+                  <p className="font-sans font-normal text-sm sm:text-base text-[#cbd5e1] leading-relaxed mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    The QYONA journey combines an evolving story, community missions, digital culture, and the QYN token ecosystem.
+                  </p>
 
-                {/* PARAGRAPH 3 */}
-                <p className="font-sans font-normal text-sm sm:text-base text-[#cbd5e1] leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  Whitelist members will receive early access to selected QYONA opportunities and future community events.
-                </p>
-              </motion.div>
+                  {/* PARAGRAPH 3 */}
+                  <p className="font-sans font-normal text-sm sm:text-base text-[#cbd5e1] leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    Whitelist members will receive early access to selected QYONA opportunities and future community events.
+                  </p>
+                </AnimatedSection>
+              </div>
 
               {/* MASCOT CHARACTER USING PUBLIC/ICON.PNG (RIGHT/CENTER) */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                animate={{
-                  y: [0, -10, 0],
-                }}
-                transition={{
-                  opacity: { duration: 0.6, delay: 0.15 },
-                  scale: { duration: 0.6, delay: 0.15 },
-                  y: { duration: 4.5, repeat: Infinity, ease: 'easeInOut' },
-                }}
-                className="md:col-span-5 flex items-center justify-center relative my-4 md:my-0"
-              >
-                {/* Background purple glow behind mascot */}
-                <div className="absolute inset-0 bg-purple-600/30 blur-3xl rounded-full scale-90 pointer-events-none" />
+              <div className="md:col-span-5 flex items-center justify-center relative my-4 md:my-0">
+                <AnimatedSection direction="scale" amount={0.15}>
+                  <motion.div
+                    animate={{
+                      y: [0, -10, 0],
+                    }}
+                    transition={{
+                      y: { duration: 4.5, repeat: Infinity, ease: 'easeInOut' },
+                    }}
+                    className="relative flex items-center justify-center"
+                  >
+                    {/* Background purple glow behind mascot */}
+                    <div className="absolute inset-0 bg-purple-600/30 blur-3xl rounded-full scale-90 pointer-events-none" />
 
-                <Image
-                  src="/icon.png"
-                  alt="QYONA Mascot"
-                  width={420}
-                  height={420}
-                  priority
-                  className="relative z-10 w-full max-w-[260px] sm:max-w-[300px] md:max-w-[340px] h-auto object-contain drop-shadow-[0_0_35px_rgba(168,85,247,0.8)] hover:scale-105 transition-transform duration-500 ease-out"
-                />
-              </motion.div>
+                    <Image
+                      src="/icon.png"
+                      alt="QYONA Mascot"
+                      width={420}
+                      height={420}
+                      priority
+                      className="relative z-10 w-full max-w-[260px] sm:max-w-[300px] md:max-w-[340px] h-auto object-contain drop-shadow-[0_0_35px_rgba(168,85,247,0.8)] hover:scale-105 transition-transform duration-500 ease-out"
+                    />
+                  </motion.div>
+                </AnimatedSection>
+              </div>
             </div>
 
             {/* BOTTOM PERKS BOX: THE FIRST CIRCLE OF EXPLORERS */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-full relative rounded-[24px] overflow-hidden bg-[#0c0420]/80 backdrop-blur-xl border border-purple-500/35 shadow-[0_15px_40px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] p-5 sm:p-6 lg:p-7 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-purple-400/60 before:to-transparent"
-            >
-              {/* BOX TITLE */}
-              <h3 className="font-spock font-bold text-xs sm:text-sm text-[#a855f7] tracking-[0.2em] uppercase mb-1 drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]">
-                THE FIRST CIRCLE OF EXPLORERS
-              </h3>
+            <AnimatedSection direction="up" amount={0.15} className="w-full">
+              <div className="w-full relative rounded-[24px] overflow-hidden bg-[#0c0420]/80 backdrop-blur-xl border border-purple-500/35 shadow-[0_15px_40px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] p-5 sm:p-6 lg:p-7 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-purple-400/60 before:to-transparent">
+                {/* BOX TITLE */}
+                <h3 className="font-spock font-bold text-xs sm:text-sm text-[#a855f7] tracking-[0.2em] uppercase mb-1 drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]">
+                  THE FIRST CIRCLE OF EXPLORERS
+                </h3>
 
-              {/* SUBTITLE */}
-              <p className="font-sans font-normal text-xs sm:text-sm text-[#cbd5e1] mb-5">
-                Join early. Participate. Explore together. The future of QYONA is built by its community.
-              </p>
+                {/* SUBTITLE */}
+                <p className="font-sans font-normal text-xs sm:text-sm text-[#cbd5e1] mb-5">
+                  Join early. Participate. Explore together. The future of QYONA is built by its community.
+                </p>
 
-              {/* 6 PERK BADGES */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-                {perks.map((perk) => (
-                  <div
-                    key={perk.title}
-                    className="flex flex-col items-center text-center p-3 rounded-[16px] bg-[#140833]/80 border border-purple-500/25 hover:border-purple-400/50 hover:bg-[#1f0b4d]/80 transition-all duration-300 group shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
-                  >
-                    <div className="w-9 h-9 rounded-xl bg-purple-500/15 flex items-center justify-center mb-2 group-hover:scale-110 group-hover:bg-purple-500/30 transition-all duration-300">
-                      {perk.icon}
-                    </div>
-                    <span className="font-spock font-bold text-[11px] sm:text-xs text-white leading-snug group-hover:text-[#c084fc] transition-colors duration-200">
-                      {perk.title}
-                    </span>
-                  </div>
-                ))}
+                {/* 6 PERK BADGES */}
+                <StaggerContainer className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4" staggerDelay={0.07}>
+                  {perks.map((perk) => (
+                    <motion.div
+                      key={perk.title}
+                      variants={staggerItemVariants}
+                      whileHover={{ y: -3, scale: 1.03 }}
+                      className="flex flex-col items-center text-center p-3 rounded-[16px] bg-[#140833]/80 border border-purple-500/25 hover:border-purple-400/50 hover:bg-[#1f0b4d]/80 transition-all duration-300 group shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
+                    >
+                      <div className="w-9 h-9 rounded-xl bg-purple-500/15 flex items-center justify-center mb-2 group-hover:scale-110 group-hover:bg-purple-500/30 transition-all duration-300">
+                        {perk.icon}
+                      </div>
+                      <span className="font-spock font-bold text-[11px] sm:text-xs text-white leading-snug group-hover:text-[#c084fc] transition-colors duration-200">
+                        {perk.title}
+                      </span>
+                    </motion.div>
+                  ))}
+                </StaggerContainer>
               </div>
-            </motion.div>
+            </AnimatedSection>
 
           </div>
 
           {/* ================= RIGHT COLUMN (HOW TO JOIN CARD) ================= */}
           <div className="lg:col-span-5 xl:col-span-4 flex flex-col">
-            <motion.div
-              initial={{ opacity: 0, x: 25 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="w-full relative rounded-[28px] sm:rounded-[32px] overflow-hidden bg-[#0c0420]/85 backdrop-blur-2xl border border-purple-500/35 shadow-[0_20px_60px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.2),0_0_40px_rgba(157,78,221,0.25)] p-6 sm:p-8 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-purple-400/60 before:to-transparent"
-            >
-              {/* CARD TITLE */}
-              <h3 className="font-spock font-black text-xl sm:text-2xl text-[#c084fc] uppercase tracking-wider mb-6 text-left drop-shadow-[0_0_15px_rgba(168,85,247,0.8)]">
-                HOW TO JOIN
-              </h3>
+            <AnimatedSection direction="right" amount={0.15}>
+              <div className="w-full relative rounded-[28px] sm:rounded-[32px] overflow-hidden bg-[#0c0420]/85 backdrop-blur-2xl border border-purple-500/35 shadow-[0_20px_60px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.2),0_0_40px_rgba(157,78,221,0.25)] p-6 sm:p-8 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-purple-400/60 before:to-transparent">
+                {/* CARD TITLE */}
+                <h3 className="font-spock font-black text-xl sm:text-2xl text-[#c084fc] uppercase tracking-wider mb-6 text-left drop-shadow-[0_0_15px_rgba(168,85,247,0.8)]">
+                  HOW TO JOIN
+                </h3>
 
-              {/* ACTION STEPS LIST */}
-              <div className="flex flex-col gap-3.5 mb-6">
-                {joinSteps.map((step) => {
-                  const content = (
-                    <div className="w-full bg-[#070114]/85 hover:bg-[#130630]/90 border border-purple-500/30 hover:border-purple-400/60 rounded-[18px] p-3.5 sm:p-4 flex items-center gap-3.5 transition-all duration-300 shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] group">
-                      <div className="w-10 h-10 rounded-xl bg-purple-500/15 group-hover:bg-purple-500/30 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                        {step.icon}
+                {/* ACTION STEPS LIST */}
+                <StaggerContainer className="flex flex-col gap-3.5 mb-6" staggerDelay={0.08}>
+                  {joinSteps.map((step) => {
+                    const content = (
+                      <motion.div
+                        variants={staggerItemVariants}
+                        whileHover={{ x: 4 }}
+                        className="w-full bg-[#070114]/85 hover:bg-[#130630]/90 border border-purple-500/30 hover:border-purple-400/60 rounded-[18px] p-3.5 sm:p-4 flex items-center gap-3.5 transition-all duration-300 shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] group"
+                      >
+                        <div className="w-10 h-10 rounded-xl bg-purple-500/15 group-hover:bg-purple-500/30 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                          {step.icon}
+                        </div>
+                        <span className="font-spock font-bold text-xs sm:text-sm text-white group-hover:text-[#c084fc] text-left leading-snug transition-colors duration-200">
+                          {step.text}
+                        </span>
+                      </motion.div>
+                    )
+
+                    return step.href ? (
+                      <a
+                        key={step.text}
+                        href={step.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full"
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      <div key={step.text} className="block w-full">
+                        {content}
                       </div>
-                      <span className="font-spock font-bold text-xs sm:text-sm text-white group-hover:text-[#c084fc] text-left leading-snug transition-colors duration-200">
-                        {step.text}
-                      </span>
-                    </div>
-                  )
+                    )
+                  })}
+                </StaggerContainer>
 
-                  return step.href ? (
-                    <a
-                      key={step.text}
-                      href={step.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full"
-                    >
-                      {content}
-                    </a>
-                  ) : (
-                    <div key={step.text} className="block w-full">
-                      {content}
-                    </div>
-                  )
-                })}
+                {/* WARNING / DISCLAIMER BOX AT BOTTOM */}
+                <div className="w-full rounded-[18px] bg-purple-950/40 border border-purple-500/25 p-4 text-left">
+                  <p className="font-sans text-xs sm:text-xs text-[#cbd5e1] leading-relaxed">
+                    <span className="font-spock font-bold text-pink-400 uppercase tracking-wide">Important:</span> Whitelist spots are limited and eligibility will be based on the official QYONA campaign rules.
+                  </p>
+                </div>
               </div>
-
-              {/* WARNING / DISCLAIMER BOX AT BOTTOM */}
-              <div className="w-full rounded-[18px] bg-purple-950/40 border border-purple-500/25 p-4 text-left">
-                <p className="font-sans text-xs sm:text-xs text-[#cbd5e1] leading-relaxed">
-                  <span className="font-spock font-bold text-pink-400 uppercase tracking-wide">Important:</span> Whitelist spots are limited and eligibility will be based on the official QYONA campaign rules.
-                </p>
-              </div>
-            </motion.div>
+            </AnimatedSection>
           </div>
 
         </div>
