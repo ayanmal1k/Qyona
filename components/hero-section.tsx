@@ -130,9 +130,9 @@ export default function HeroSection() {
               <span className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm pointer-events-none" />
             </motion.a>
 
-            {/* Secondary Button: BUY $QYN (DexScreener Link) */}
+            {/* Secondary Button: BUY $QYN (Binance Web3 Link) */}
             <motion.a
-              href="https://dexscreener.com/bsc/0x7494327ea33d4f8d99669b767406269da05d972e"
+              href="https://web3.binance.com/en/token/bsc/0x7494327ea33d4f8d99669b767406269da05d972e"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.06, y: -2 }}
