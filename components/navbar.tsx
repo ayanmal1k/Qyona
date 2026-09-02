@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
@@ -9,8 +9,11 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [visible, setVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
   const [activeSection, setActiveSection] = useState('home')
+  
+  const lastScrollYRef = useRef(0)
+  const isNavigatingRef = useRef(false)
+  const navTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const navLinks = [
     { name: 'HOME', href: '#home', id: 'home' },
@@ -22,46 +25,72 @@ export default function Navbar() {
   ]
 
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId: number
+
+    const updateScrollState = () => {
       const currentScrollY = window.scrollY
-      
-      if (currentScrollY > 50) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
+      const lastScrollY = lastScrollYRef.current
+
+      // Scrolled state for backdrop
+      setScrolled(currentScrollY > 50)
+
+      // Visibility hysteresis to avoid jitter on minor scroll bounces
+      if (Math.abs(currentScrollY - lastScrollY) > 8) {
+        if (currentScrollY > lastScrollY && currentScrollY > 150) {
+          setVisible(false)
+        } else {
+          setVisible(true)
+        }
+        lastScrollYRef.current = currentScrollY
       }
 
-      if (currentScrollY > lastScrollY && currentScrollY > 150) {
-        // Scrolling down past threshold -> hide navbar smoothly
-        setVisible(false)
-      } else {
-        // Scrolling up -> reveal navbar smoothly
-        setVisible(true)
-      }
+      // Active section detection (skip if user clicked a nav link)
+      if (!isNavigatingRef.current) {
+        const sectionIds = ['home', 'about', 'tokenomics', 'roadmap', 'whitelist', 'socials']
+        const scrollPosition = currentScrollY + 240
 
-      setLastScrollY(currentScrollY)
-
-      // Section intersection detection for active link
-      const sectionIds = ['home', 'about', 'tokenomics', 'roadmap', 'whitelist', 'socials']
-      const scrollPosition = currentScrollY + 200
-
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sectionIds[i])
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sectionIds[i])
-          break
+        for (let i = sectionIds.length - 1; i >= 0; i--) {
+          const section = document.getElementById(sectionIds[i])
+          if (section) {
+            const top = section.offsetTop
+            const height = section.offsetHeight
+            if (scrollPosition >= top && scrollPosition < top + height) {
+              setActiveSection(sectionIds[i])
+              break
+            } else if (i === 0 && currentScrollY < 200) {
+              setActiveSection('home')
+              break
+            }
+          }
         }
       }
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
+    const onScroll = () => {
+      cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(updateScrollState)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(rafId)
+      if (navTimeoutRef.current) clearTimeout(navTimeoutRef.current)
+    }
+  }, [])
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, id: string) => {
     e.preventDefault()
     setMobileMenuOpen(false)
     setActiveSection(id)
+
+    // Lock active section during programmatic Lenis scroll
+    isNavigatingRef.current = true
+    if (navTimeoutRef.current) clearTimeout(navTimeoutRef.current)
+
+    navTimeoutRef.current = setTimeout(() => {
+      isNavigatingRef.current = false
+    }, 1300)
 
     const lenis = (window as any).__lenis
     if (lenis) {
@@ -84,7 +113,7 @@ export default function Navbar() {
         boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(168, 85, 247, 0.2)' : 'none',
       }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
-      className="fixed top-0 left-0 w-full border-b border-purple-500/20 py-3.5 sm:py-4 px-4 sm:px-8 lg:px-12 z-50 transition-all duration-300"
+      className="fixed top-0 left-0 w-full border-b border-purple-500/20 py-3 sm:py-3.5 px-4 sm:px-8 lg:px-12 z-50 transition-all duration-300"
     >
       <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
         
@@ -110,7 +139,7 @@ export default function Navbar() {
         </a>
 
         {/* CENTER: DESKTOP NAVIGATION LINKS */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
           {navLinks.map((link) => {
             const isActive = activeSection === link.id
             return (
@@ -118,18 +147,19 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href, link.id)}
-                className={`font-spock font-bold text-xs xl:text-sm tracking-wider uppercase transition-all duration-200 relative py-1 ${
+                className={`font-spock font-bold text-xs xl:text-sm tracking-wider uppercase transition-colors duration-200 relative py-1.5 px-2.5 rounded-lg ${
                   isActive 
-                    ? 'text-[#c084fc] drop-shadow-[0_0_12px_rgba(192,132,252,0.9)]' 
-                    : 'text-[#cbd5e1] hover:text-[#c084fc] drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] hover:drop-shadow-[0_0_12px_rgba(192,132,252,0.8)]'
+                    ? 'text-[#c084fc] bg-purple-500/10 drop-shadow-[0_0_12px_rgba(192,132,252,0.9)]' 
+                    : 'text-[#cbd5e1] hover:text-[#c084fc] hover:bg-white/[0.04]'
                 }`}
               >
                 {link.name}
                 {isActive && (
-                  <motion.div
-                    layoutId="activeNavIndicator"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-[#a855f7] to-[#c084fc] rounded-full shadow-[0_0_8px_#c084fc]"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  <motion.span
+                    initial={{ scaleX: 0, opacity: 0 }}
+                    animate={{ scaleX: 1, opacity: 1 }}
+                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                    className="absolute bottom-0 left-2 right-2 h-0.5 bg-gradient-to-r from-[#a855f7] via-[#c084fc] to-[#a855f7] rounded-full shadow-[0_0_8px_#c084fc] origin-center"
                   />
                 )}
               </a>
