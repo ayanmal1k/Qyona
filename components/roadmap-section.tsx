@@ -18,7 +18,7 @@ const roadmapPhases: RoadmapPhase[] = [
     phaseLabel: 'PHASE 01',
     title: 'AWAKENING',
     status: 'IN PROGRESS',
-    image: '/roadmap/1.png',
+    image: '/roadmap/1-.avif',
     items: [
       'Launch the QYONA Universe',
       'Establish the official QYONA character',
@@ -33,7 +33,7 @@ const roadmapPhases: RoadmapPhase[] = [
     phaseLabel: 'PHASE 02',
     title: 'DISCOVERY',
     status: 'NEXT',
-    image: '/roadmap/2.png',
+    image: '/roadmap/2-.avif',
     items: [
       'Continue the QYONA Mission series',
       'Launch community missions',
@@ -47,7 +47,7 @@ const roadmapPhases: RoadmapPhase[] = [
     number: '03',
     phaseLabel: 'PHASE 03',
     title: 'ACTIVATION',
-    image: '/roadmap/3.png',
+    image: '/roadmap/3-.avif',
     items: [
       'Official website launch',
       'QYN ecosystem information',
@@ -61,7 +61,7 @@ const roadmapPhases: RoadmapPhase[] = [
     number: '04',
     phaseLabel: 'PHASE 04',
     title: 'THE UNIVERSE',
-    image: '/roadmap/4.png',
+    image: '/roadmap/4-.avif',
     items: [
       'Expand the QYONA storyline',
       'Introduce new worlds and characters',
@@ -75,7 +75,7 @@ const roadmapPhases: RoadmapPhase[] = [
     number: '05',
     phaseLabel: 'PHASE 05',
     title: 'BEYOND',
-    image: '/roadmap/5.png',
+    image: '/roadmap/5-.avif',
     items: [
       'The destination is unknown.',
       "QYONA's universe will evolve together with its community.",
@@ -271,8 +271,8 @@ export default function RoadmapSection() {
                 )}
                 {!phase.status && <div className="h-6 mb-1" />}
 
-                {/* 5. CHARACTER IMAGE FROM PUBLIC/ROADMAP */}
-                <div className="relative w-full h-[180px] sm:h-[220px] lg:h-[190px] xl:h-[220px] rounded-[18px] overflow-hidden mb-4 bg-[#0a021c]">
+                {/* 5. CHARACTER IMAGE FROM PUBLIC/ROADMAP (NEWER AVIF IMAGES WITH MORE HEIGHT) */}
+                <div className="relative w-full h-[260px] sm:h-[320px] md:h-[340px] lg:h-[260px] xl:h-[300px] 2xl:h-[350px] rounded-[20px] overflow-hidden mb-5 bg-[#0a021c]">
                   <Image
                     src={phase.image}
                     alt={phase.title}
@@ -281,7 +281,7 @@ export default function RoadmapSection() {
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
                   {/* Subtle bottom gradient overlay for smooth blending */}
-                  <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#070118] to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#070118] via-[#070118]/40 to-transparent pointer-events-none" />
                 </div>
 
                 {/* 6. BULLET POINTS LIST */}
