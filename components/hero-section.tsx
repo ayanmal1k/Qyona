@@ -116,9 +116,11 @@ export default function HeroSection() {
             variants={itemVariants}
             className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 mb-4 sm:mb-5 md:mb-8 w-full sm:w-auto"
           >
-            {/* Primary Button: JOIN THE MISSION */}
+            {/* Primary Button: JOIN THE MISSION (Telegram Link) */}
             <motion.a
-              href="#join"
+              href="https://t.me/QYONAExplorers"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.06, y: -2 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 400, damping: 18 }}
@@ -128,9 +130,11 @@ export default function HeroSection() {
               <span className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm pointer-events-none" />
             </motion.a>
 
-            {/* Secondary Button: BUY $QYN */}
+            {/* Secondary Button: BUY $QYN (DexScreener Link) */}
             <motion.a
-              href="#tokenomics"
+              href="https://dexscreener.com/bsc/0x7494327ea33d4f8d99669b767406269da05d972e"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.06, y: -2 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 400, damping: 18 }}

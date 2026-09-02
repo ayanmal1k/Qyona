@@ -1,3 +1,4 @@
+import Navbar from '@/components/navbar'
 import HeroSection from '@/components/hero-section'
 import AboutSection from '@/components/about-section'
 import TokenomicsSection from '@/components/tokenomics-section'
@@ -9,6 +10,7 @@ import Footer from '@/components/footer'
 export default function Home() {
   return (
     <main className="min-h-screen w-full bg-[#070114]">
+      <Navbar />
       <HeroSection />
       <AboutSection />
       <TokenomicsSection />
@@ -19,6 +21,7 @@ export default function Home() {
     </main>
   )
 }
+
 
 
 
