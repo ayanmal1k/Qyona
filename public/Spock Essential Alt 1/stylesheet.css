@@ -1,0 +1,156 @@
+@font-face {
+    font-family: 'Spock Essential Alt1';
+    src: url('SpockEssAlt1-ThinIt.eot');
+    src: local('Spock Essential Alt1 Thin Italic'), local('SpockEssAlt1-ThinIt'),
+        url('SpockEssAlt1-ThinIt.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-ThinIt.woff2') format('woff2'),
+        url('SpockEssAlt1-ThinIt.woff') format('woff'),
+        url('SpockEssAlt1-ThinIt.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spock Essential Alt1';
+    src: url('SpockEssAlt1-LightIt.eot');
+    src: local('Spock Essential Alt1 Light Italic'), local('SpockEssAlt1-LightIt'),
+        url('SpockEssAlt1-LightIt.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-LightIt.woff2') format('woff2'),
+        url('SpockEssAlt1-LightIt.woff') format('woff'),
+        url('SpockEssAlt1-LightIt.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spock Essential Alt1';
+    src: url('SpockEssAlt1-Regular.eot');
+    src: local('Spock Essential Alt1'), local('SpockEssAlt1-Regular'),
+        url('SpockEssAlt1-Regular.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-Regular.woff2') format('woff2'),
+        url('SpockEssAlt1-Regular.woff') format('woff'),
+        url('SpockEssAlt1-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spock Essential Alt1 Ultra';
+    src: url('SpockEssAlt1-UltraLightIt.eot');
+    src: local('Spock Essential Alt1 Ultra Light Italic'), local('SpockEssAlt1-UltraLightIt'),
+        url('SpockEssAlt1-UltraLightIt.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-UltraLightIt.woff2') format('woff2'),
+        url('SpockEssAlt1-UltraLightIt.woff') format('woff'),
+        url('SpockEssAlt1-UltraLightIt.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spock Essential Alt1';
+    src: url('SpockEssAlt1-BlackIt.eot');
+    src: local('Spock Essential Alt1 Black Italic'), local('SpockEssAlt1-BlackIt'),
+        url('SpockEssAlt1-BlackIt.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-BlackIt.woff2') format('woff2'),
+        url('SpockEssAlt1-BlackIt.woff') format('woff'),
+        url('SpockEssAlt1-BlackIt.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spock Essential Alt1';
+    src: url('SpockEssAlt1-Thin.eot');
+    src: local('Spock Essential Alt1 Thin'), local('SpockEssAlt1-Thin'),
+        url('SpockEssAlt1-Thin.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-Thin.woff2') format('woff2'),
+        url('SpockEssAlt1-Thin.woff') format('woff'),
+        url('SpockEssAlt1-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spock Essential Alt1';
+    src: url('SpockEssAlt1-Black.eot');
+    src: local('Spock Essential Alt1 Black'), local('SpockEssAlt1-Black'),
+        url('SpockEssAlt1-Black.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-Black.woff2') format('woff2'),
+        url('SpockEssAlt1-Black.woff') format('woff'),
+        url('SpockEssAlt1-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spock Essential Alt1';
+    src: url('SpockEssAlt1-Bold.eot');
+    src: local('Spock Essential Alt1 Bold'), local('SpockEssAlt1-Bold'),
+        url('SpockEssAlt1-Bold.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-Bold.woff2') format('woff2'),
+        url('SpockEssAlt1-Bold.woff') format('woff'),
+        url('SpockEssAlt1-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spock Essential Alt1';
+    src: url('SpockEssAlt1-RegularIt.eot');
+    src: local('Spock Essential Alt1 Italic'), local('SpockEssAlt1-RegularIt'),
+        url('SpockEssAlt1-RegularIt.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-RegularIt.woff2') format('woff2'),
+        url('SpockEssAlt1-RegularIt.woff') format('woff'),
+        url('SpockEssAlt1-RegularIt.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spock Essential Alt1';
+    src: url('SpockEssAlt1-BoldIt.eot');
+    src: local('Spock Essential Alt1 Bold Italic'), local('SpockEssAlt1-BoldIt'),
+        url('SpockEssAlt1-BoldIt.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-BoldIt.woff2') format('woff2'),
+        url('SpockEssAlt1-BoldIt.woff') format('woff'),
+        url('SpockEssAlt1-BoldIt.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spock Essential Alt1';
+    src: url('SpockEssAlt1-Light.eot');
+    src: local('Spock Essential Alt1 Light'), local('SpockEssAlt1-Light'),
+        url('SpockEssAlt1-Light.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-Light.woff2') format('woff2'),
+        url('SpockEssAlt1-Light.woff') format('woff'),
+        url('SpockEssAlt1-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spock Essential Alt1 Ultra';
+    src: url('SpockEssAlt1-UltraLight.eot');
+    src: local('Spock Essential Alt1 Ultra Light'), local('SpockEssAlt1-UltraLight'),
+        url('SpockEssAlt1-UltraLight.eot?#iefix') format('embedded-opentype'),
+        url('SpockEssAlt1-UltraLight.woff2') format('woff2'),
+        url('SpockEssAlt1-UltraLight.woff') format('woff'),
+        url('SpockEssAlt1-UltraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
