@@ -79,11 +79,79 @@ const spockEssential = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'QYONA - A Cosmic Creature Powered by Community',
-  description: 'A small creature from another galaxy collecting the energy of the community. The more people join, the stronger QYONA becomes.',
-  icons: {
-    icon: '/icon.png',
+  metadataBase: new URL('https://qyona.com'),
+  title: {
+    default: 'QYONA - A Cosmic Creature Powered by Community | $QYN',
+    template: '%s | QYONA',
   },
+  description:
+    'A small creature from another galaxy collecting the energy of the community. Join the QYONA Universe powered by BNB Chain ($QYN).',
+  keywords: [
+    'QYONA',
+    'QYN',
+    'BNB Chain',
+    'BNB',
+    'Crypto',
+    'Web3 Universe',
+    'Cosmic Creature',
+    'Meme Coin',
+    'Crypto Community',
+    'BSC Token',
+  ],
+  authors: [{ name: 'QYONA Community', url: 'https://qyona.com' }],
+  creator: 'QYONA',
+  publisher: 'QYONA',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: [
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/icon.png' },
+    ],
+  },
+  openGraph: {
+    title: 'QYONA - A Cosmic Creature Powered by Community',
+    description:
+      'A small creature from another galaxy collecting the energy of the community. The more people join, the stronger QYONA becomes.',
+    url: 'https://qyona.com',
+    siteName: 'QYONA Universe',
+    images: [
+      {
+        url: '/new-hero-bg.avif',
+        width: 1920,
+        height: 1080,
+        alt: 'QYONA Cosmic Banner',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'QYONA - A Cosmic Creature Powered by Community',
+    description:
+      'A small creature from another galaxy collecting the energy of the community. Join the QYONA Universe powered by BNB Chain ($QYN).',
+    site: '@MrJunglePro',
+    creator: '@MrJunglePro',
+    images: ['/new-hero-bg.avif'],
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  },
+  themeColor: '#070114',
 }
 
 export default function RootLayout({
