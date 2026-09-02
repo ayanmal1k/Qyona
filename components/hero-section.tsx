@@ -1,7 +1,9 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { motion, type Variants } from 'framer-motion'
+import { Copy, Check } from 'lucide-react'
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -29,6 +31,15 @@ const itemVariants: Variants = {
 }
 
 export default function HeroSection() {
+  const [copied, setCopied] = useState(false)
+  const contractAddress = '0x7494327ea33d4f8d99669b767406269da05d972e'
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(contractAddress)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
   return (
     <section className="relative w-full min-h-[100dvh] md:min-h-0 md:aspect-[1920/1080] max-w-[1920px] mx-auto flex items-center justify-center bg-[#070114] overflow-hidden">
       {/* ================= DESKTOP BACKGROUND (1920x1080) ================= */}
@@ -119,7 +130,7 @@ export default function HeroSection() {
 
             {/* Secondary Button: BUY $QYN */}
             <motion.a
-              href="#buy"
+              href="#tokenomics"
               whileHover={{ scale: 1.06, y: -2 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 400, damping: 18 }}
@@ -130,29 +141,54 @@ export default function HeroSection() {
             </motion.a>
           </motion.div>
 
-          {/* 5. BNB CHAIN BADGE (Spock Essential font + BNB logo with Purple Glow) */}
+          {/* 5. BNB CHAIN BADGE & CA QUICK COPY PILL */}
           <motion.div 
             variants={itemVariants}
-            className="inline-flex items-center gap-2.5 sm:gap-3 md:gap-3.5 px-4 py-2 rounded-full bg-[#12062b]/60 border border-[#a855f7]/30 shadow-[0_0_20px_rgba(168,85,247,0.25)] backdrop-blur-md"
+            className="flex flex-wrap items-center gap-3 sm:gap-3.5"
           >
-            <span className="font-spock font-semibold text-xs sm:text-sm md:text-base lg:text-[17px] text-[#d8b4fe] tracking-wide drop-shadow-[0_0_14px_rgba(192,132,252,0.9)]">
-              QYONA on
-            </span>
-            <div className="relative w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0">
-              <Image
-                src="/binance-smart-chain.png"
-                alt="BNB Chain"
-                width={24}
-                height={24}
-                className="w-full h-full object-contain"
-              />
+            <div className="inline-flex items-center gap-2.5 sm:gap-3 md:gap-3.5 px-4 py-2 rounded-full bg-[#12062b]/60 border border-[#a855f7]/30 shadow-[0_0_20px_rgba(168,85,247,0.25)] backdrop-blur-md">
+              <span className="font-spock font-semibold text-xs sm:text-sm md:text-base lg:text-[17px] text-[#d8b4fe] tracking-wide drop-shadow-[0_0_14px_rgba(192,132,252,0.9)]">
+                QYONA on
+              </span>
+              <div className="relative w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0">
+                <Image
+                  src="/binance-smart-chain.png"
+                  alt="BNB Chain"
+                  width={24}
+                  height={24}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <span className="font-spock font-bold text-xs sm:text-sm md:text-base lg:text-[17px] text-[#F3BA2F] tracking-wider uppercase drop-shadow-[0_0_12px_rgba(243,186,47,0.6)]">
+                BNB CHAIN
+              </span>
             </div>
-            <span className="font-spock font-bold text-xs sm:text-sm md:text-base lg:text-[17px] text-[#F3BA2F] tracking-wider uppercase drop-shadow-[0_0_12px_rgba(243,186,47,0.6)]">
-              BNB CHAIN
-            </span>
+
+            {/* QUICK CA COPY PILL */}
+            <div 
+              onClick={handleCopy}
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#12062b]/80 border border-[#a855f7]/35 hover:border-[#c084fc]/70 shadow-[0_0_20px_rgba(168,85,247,0.25)] backdrop-blur-md cursor-pointer transition-all duration-300 group relative"
+            >
+              <span className="font-spock font-bold text-xs sm:text-sm text-[#a855f7] tracking-wider">
+                CA:
+              </span>
+              <span className="font-mono text-xs sm:text-sm text-white/90 group-hover:text-white transition-colors duration-200">
+                0x7494...972e
+              </span>
+              <div className="text-[#d8b4fe] group-hover:scale-110 transition-transform duration-200">
+                {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+              </div>
+
+              {copied && (
+                <span className="absolute -top-7 right-0 bg-[#a855f7] text-white font-spock text-[10px] font-bold px-2 py-0.5 rounded shadow-lg whitespace-nowrap animate-in fade-in zoom-in duration-200">
+                  COPIED!
+                </span>
+              )}
+            </div>
           </motion.div>
         </motion.div>
       </div>
     </section>
   )
 }
+
