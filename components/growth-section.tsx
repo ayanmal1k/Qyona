@@ -184,43 +184,49 @@ const DEFAULT_DATA: GrowthApiResponse = {
   },
   history: {
     '7D': [
-      { date: 'Aug 28', holders: 2, growthPct: 0 },
-      { date: 'Aug 29', holders: 2, growthPct: 0 },
-      { date: 'Aug 30', holders: 3, growthPct: 50.0 },
-      { date: 'Aug 31', holders: 3, growthPct: 50.0 },
-      { date: 'Sep 01', holders: 3, growthPct: 50.0 },
-      { date: 'Sep 02', holders: 3, growthPct: 50.0 },
-      { date: 'Sep 03', holders: 4, growthPct: 100.0 },
+      { date: 'Today', holders: 4, growthPct: 0 },
+      { date: 'Day 2', holders: 4, growthPct: 0 },
+      { date: 'Day 3', holders: 5, growthPct: 25.0 },
+      { date: 'Day 4', holders: 5, growthPct: 25.0 },
+      { date: 'Day 5', holders: 6, growthPct: 50.0 },
+      { date: 'Day 6', holders: 6, growthPct: 50.0 },
+      { date: 'Day 7', holders: 7, growthPct: 75.0 },
     ],
     '30D': [
-      { date: 'Aug 04', holders: 1, growthPct: 0 },
-      { date: 'Aug 09', holders: 1, growthPct: 0 },
-      { date: 'Aug 14', holders: 2, growthPct: 100.0 },
-      { date: 'Aug 19', holders: 2, growthPct: 100.0 },
-      { date: 'Aug 24', holders: 3, growthPct: 200.0 },
-      { date: 'Aug 29', holders: 3, growthPct: 200.0 },
-      { date: 'Sep 03', holders: 4, growthPct: 300.0 },
+      { date: 'Today', holders: 4, growthPct: 0 },
+      { date: 'Day 2', holders: 4, growthPct: 0 },
+      { date: 'Day 3', holders: 5, growthPct: 25.0 },
+      { date: 'Day 4', holders: 5, growthPct: 25.0 },
+      { date: 'Day 5', holders: 6, growthPct: 50.0 },
+      { date: 'Day 6', holders: 6, growthPct: 50.0 },
+      { date: 'Day 7', holders: 7, growthPct: 75.0 },
     ],
     '90D': [
-      { date: 'Jul 30', holders: 1, growthPct: 0 },
-      { date: 'Aug 06', holders: 1, growthPct: 0 },
-      { date: 'Aug 13', holders: 2, growthPct: 100.0 },
-      { date: 'Aug 20', holders: 2, growthPct: 100.0 },
-      { date: 'Aug 27', holders: 3, growthPct: 200.0 },
-      { date: 'Sep 03', holders: 4, growthPct: 300.0 },
+      { date: 'Today', holders: 4, growthPct: 0 },
+      { date: 'Day 2', holders: 4, growthPct: 0 },
+      { date: 'Day 3', holders: 5, growthPct: 25.0 },
+      { date: 'Day 4', holders: 5, growthPct: 25.0 },
+      { date: 'Day 5', holders: 6, growthPct: 50.0 },
+      { date: 'Day 6', holders: 6, growthPct: 50.0 },
+      { date: 'Day 7', holders: 7, growthPct: 75.0 },
     ],
     '1Y': [
-      { date: 'Launch', holders: 1, growthPct: 0 },
-      { date: 'Week 2', holders: 2, growthPct: 100.0 },
-      { date: 'Week 3', holders: 3, growthPct: 200.0 },
-      { date: 'Week 4', holders: 3, growthPct: 200.0 },
-      { date: 'Now', holders: 4, growthPct: 300.0 },
+      { date: 'Today', holders: 4, growthPct: 0 },
+      { date: 'Day 2', holders: 4, growthPct: 0 },
+      { date: 'Day 3', holders: 5, growthPct: 25.0 },
+      { date: 'Day 4', holders: 5, growthPct: 25.0 },
+      { date: 'Day 5', holders: 6, growthPct: 50.0 },
+      { date: 'Day 6', holders: 6, growthPct: 50.0 },
+      { date: 'Day 7', holders: 7, growthPct: 75.0 },
     ],
     ALL: [
-      { date: 'Creation', holders: 1, growthPct: 0 },
-      { date: 'Curve Phase', holders: 2, growthPct: 100.0 },
-      { date: 'Growth', holders: 3, growthPct: 200.0 },
-      { date: 'Current', holders: 4, growthPct: 300.0 },
+      { date: 'Today', holders: 4, growthPct: 0 },
+      { date: 'Day 2', holders: 4, growthPct: 0 },
+      { date: 'Day 3', holders: 5, growthPct: 25.0 },
+      { date: 'Day 4', holders: 5, growthPct: 25.0 },
+      { date: 'Day 5', holders: 6, growthPct: 50.0 },
+      { date: 'Day 6', holders: 6, growthPct: 50.0 },
+      { date: 'Day 7', holders: 7, growthPct: 75.0 },
     ],
   },
   meta: {
@@ -541,10 +547,9 @@ export default function GrowthSection() {
                   </div>
                 </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-purple-500/20 flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
-                <ArrowUpRight className="w-4 h-4 text-emerald-400" />
-                <span>{data.stats.marketCap.percentBadge}</span>
-                <span className="text-purple-300/60 font-normal ml-1">(24H)</span>
+              <div className="mt-4 pt-3 border-t border-purple-500/20 flex items-center gap-1.5 text-xs font-semibold text-purple-300">
+                <span>Four.meme Token Pool</span>
+                <span className="text-purple-400/60 font-normal ml-1">• BSC</span>
               </div>
             </div>
 
@@ -590,25 +595,24 @@ export default function GrowthSection() {
               </div>
             </div>
 
-            {/* 4. 24H VOLUME */}
+            {/* 4. BNB RAISED */}
             <div className="relative rounded-2xl p-5 sm:p-6 bg-[#0c0324]/80 backdrop-blur-xl border border-purple-500/25 hover:border-purple-500/50 shadow-[0_10px_30px_rgba(0,0,0,0.6),0_0_20px_rgba(168,85,247,0.15)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] group">
               <div className="flex items-center gap-4">
                 <HexagonBadge>
-                  <RefreshCw className="w-5 h-5 sm:w-6 sm:h-6" />
+                  <Coins className="w-5 h-5 sm:w-6 sm:h-6" />
                 </HexagonBadge>
                 <div className="flex-1 min-w-0">
                   <div className="text-[11px] sm:text-xs font-spock font-semibold tracking-wider text-purple-300 uppercase">
-                    24H VOLUME
+                    BNB RAISED
                   </div>
                   <div className="font-spock font-extrabold text-2xl sm:text-3xl text-white tracking-tight mt-0.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                    {data.stats.volume24h.formatted}
+                    {data.stats.bondingCurve?.bnbRaised?.toFixed(4) || '0.2054'} BNB
                   </div>
                 </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-purple-500/20 flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
-                <ArrowUpRight className="w-4 h-4 text-emerald-400" />
-                <span>{data.stats.volume24h.percentBadge}</span>
-                <span className="text-purple-300/60 font-normal ml-1">(24H)</span>
+              <div className="mt-4 pt-3 border-t border-purple-500/20 flex items-center justify-between text-xs font-semibold text-purple-300">
+                <span>Goal: 18.0 BNB</span>
+                <span className="text-emerald-400 font-normal">Four.meme Vault</span>
               </div>
             </div>
 
@@ -648,10 +652,9 @@ export default function GrowthSection() {
                   </div>
                 </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-purple-500/20 flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
-                <ArrowUpRight className="w-4 h-4 text-emerald-400" />
-                <span>{data.stats.transactions.percentBadge}</span>
-                <span className="text-purple-300/60 font-normal ml-1">(24H)</span>
+              <div className="mt-4 pt-3 border-t border-purple-500/20 flex items-center gap-1.5 text-xs font-semibold text-purple-300">
+                <span>Four.meme Trades</span>
+                <span className="text-purple-400/60 font-normal ml-1">• BSC</span>
               </div>
             </div>
           </div>
@@ -742,7 +745,15 @@ export default function GrowthSection() {
                       if (val >= 1000) return `${Math.round(val / 1000)}K`
                       return `${val}`
                     }}
-                    domain={[0, 'dataMax + 2000']}
+                    domain={[
+                      0,
+                      (dataMax: number) => {
+                        if (dataMax <= 20) return Math.max(dataMax + 2, 8)
+                        if (dataMax <= 100) return Math.max(dataMax + 10, 30)
+                        return dataMax + 500
+                      },
+                    ]}
+                    allowDecimals={false}
                   />
 
                   <Tooltip content={<ChartTooltip />} />
