@@ -2,6 +2,7 @@ import Navbar from '@/components/navbar'
 import HeroSection from '@/components/hero-section'
 import AboutSection from '@/components/about-section'
 import TokenomicsSection from '@/components/tokenomics-section'
+import GrowthSection from '@/components/growth-section'
 import RoadmapSection from '@/components/roadmap-section'
 import WhitelistSection from '@/components/whitelist-section'
 import SocialSection from '@/components/social-section'
@@ -14,6 +15,7 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <TokenomicsSection />
+      <GrowthSection />
       <RoadmapSection />
       <WhitelistSection />
       <SocialSection />

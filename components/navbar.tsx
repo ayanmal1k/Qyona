@@ -19,6 +19,7 @@ export default function Navbar() {
     { name: 'HOME', href: '#home', id: 'home' },
     { name: 'ABOUT', href: '#about', id: 'about' },
     { name: 'TOKENOMICS', href: '#tokenomics', id: 'tokenomics' },
+    { name: 'GROWTH', href: '#growth', id: 'growth' },
     { name: 'ROADMAP', href: '#roadmap', id: 'roadmap' },
     { name: 'WHITELIST', href: '#whitelist', id: 'whitelist' },
     { name: 'COMMUNITY', href: '#socials', id: 'socials' },
@@ -46,7 +47,7 @@ export default function Navbar() {
 
       // Active section detection (skip if user clicked a nav link)
       if (!isNavigatingRef.current) {
-        const sectionIds = ['home', 'about', 'tokenomics', 'roadmap', 'whitelist', 'socials']
+        const sectionIds = ['home', 'about', 'tokenomics', 'growth', 'roadmap', 'whitelist', 'socials']
         const scrollPosition = currentScrollY + 240
 
         for (let i = sectionIds.length - 1; i >= 0; i--) {
