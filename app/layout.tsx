@@ -79,7 +79,7 @@ const spockEssential = localFont({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://qyona.com'),
+  metadataBase: new URL('https://qyona.netlify.app'),
   title: {
     default: 'QYONA - A Cosmic Creature Powered by Community | $QYN',
     template: '%s | QYONA',
@@ -98,7 +98,7 @@ export const metadata: Metadata = {
     'Crypto Community',
     'BSC Token',
   ],
-  authors: [{ name: 'QYONA Community', url: 'https://qyona.com' }],
+  authors: [{ name: 'QYONA Community', url: 'https://qyona.netlify.app' }],
   creator: 'QYONA',
   publisher: 'QYONA',
   robots: {
@@ -124,7 +124,7 @@ export const metadata: Metadata = {
     title: 'QYONA - A Cosmic Creature Powered by Community',
     description:
       'A small creature from another galaxy collecting the energy of the community. The more people join, the stronger QYONA becomes.',
-    url: 'https://qyona.com',
+    url: 'https://qyona.netlify.app',
     siteName: 'QYONA Universe',
     images: [
       {
@@ -146,11 +146,12 @@ export const metadata: Metadata = {
     creator: '@MrJunglePro',
     images: ['/new-hero-bg.avif'],
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-  },
+}
+
+export const viewport: import('next').Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
   themeColor: '#070114',
 }
 
