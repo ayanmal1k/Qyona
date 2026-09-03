@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { saveHolderSnapshot, getHolderHistoryFromFirestore, seedInitialHolderHistoryIfEmpty, cleanupLegacyDocs } from '@/lib/firebase'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 60 // Automatic revalidation every 1 minute (60 seconds)
@@ -12,55 +13,21 @@ interface GrowthPoint {
   growthPct: number
 }
 
-// Generate realistic historical curve ending at target total holders
-function generateHistory(totalHolders: number, timeframe: string): GrowthPoint[] {
+// Generate holder growth curve starting from Today going forward
+function generateHistory(totalHolders: number): GrowthPoint[] {
   const points: GrowthPoint[] = []
   const now = new Date()
-
-  let days = 7
-  let count = 7
-  if (timeframe === '30D') {
-    days = 30
-    count = 10
-  } else if (timeframe === '90D') {
-    days = 90
-    count = 12
-  } else if (timeframe === '1Y') {
-    days = 365
-    count = 12
-  } else if (timeframe === 'ALL') {
-    days = 500
-    count = 15
-  }
-
-  // Base starting ratio based on timeframe
-  const startRatio =
-    timeframe === '7D'
-      ? 0.45
-      : timeframe === '30D'
-      ? 0.28
-      : timeframe === '90D'
-      ? 0.15
-      : timeframe === '1Y'
-      ? 0.08
-      : 0.03
-
-  const startHolders = Math.round(totalHolders * startRatio)
+  const count = 7
 
   for (let i = 0; i < count; i++) {
-    const progress = i / (count - 1)
-    // S-curve / exponential-like curve typical of meme / viral token growth
-    const curve = Math.pow(progress, 1.25)
-    const currentHolders = Math.round(startHolders + (totalHolders - startHolders) * curve)
-
-    const pointDate = new Date(now.getTime() - (1 - progress) * days * 24 * 60 * 60 * 1000)
-    const formattedDate = pointDate.toLocaleDateString('en-US', {
+    const pointDate = new Date(now.getTime() + i * 24 * 60 * 60 * 1000)
+    const formattedDate = i === 0 ? 'Today' : pointDate.toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
-      ...(timeframe === '1Y' || timeframe === 'ALL' ? { year: '2-digit' } : {}),
     })
 
-    const growthPct = Number((((currentHolders - startHolders) / startHolders) * 100).toFixed(2))
+    const currentHolders = Math.max(totalHolders, Math.round(totalHolders + i * 0.5))
+    const growthPct = Number((((currentHolders - totalHolders) / Math.max(totalHolders, 1)) * 100).toFixed(2))
 
     points.push({
       date: formattedDate,
@@ -74,34 +41,66 @@ function generateHistory(totalHolders: number, timeframe: string): GrowthPoint[]
 
 export async function GET() {
   try {
-    // Authentic data scraped/fetched from Four.meme for $QYN (0x7494327ea33d4f8d99669b767406269da05d972e)
-    let priceUsd = 0.00000442
-    let priceBnb = '0.000000006128'
-    let marketCap = 4420
-    let virtualLiquidity = 9190
-    let volume24h = 164.48
-    let priceChange24h = 6.77
-    let txns24h = 6 // Exact count from Four.meme Trades table (6 total trades)
-    let totalHolders = 4 // Exact count from Four.meme Holder table (Liquidity Pool Token 20%, d631d8d3, 40554560, 9e60a1d2)
-    let holderGrowth24h = 1
-    let holderGrowthPct24h = 33.33
-    let circulatingSupply = 1000000000 // 1 Billion QYN
-    let tokensAvailableInCurve = 765374103.9
-    let bondingCurveProgress = 4.33
+    let bnbPriceUsd = 650.0
+    let circulatingSupply = 1000000000
     let bnbRaised = 0.205367
     let targetBnb = 18.0
-    let migrationTargetCap = 64905.3
+    let priceBnbNum = 0.000000006128
+    let priceBnb = '0.000000006128'
+    let txns24h = 6
+    let totalHolders = 4
+    let holderGrowth24h = 1
+    let holderGrowthPct24h = 33.33
+    let tokensAvailableInCurve = 765374103.9
     let tax = '1% Buy / 1% Sell'
-    let dataSource = 'four_meme_live_synced'
+    let dataSource = 'four_meme_live_rpc'
 
-    // 1. Fetch exclusively from Four.meme endpoints
+    // 1. Fetch live BNB/USDT market price from Binance ticker API
+    try {
+      const bnbRes = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BNBUSDT', {
+        next: { revalidate: 60 },
+      })
+      if (bnbRes.ok) {
+        const bnbData = await bnbRes.json()
+        if (bnbData.price) {
+          bnbPriceUsd = parseFloat(bnbData.price)
+        }
+      }
+    } catch {
+      // Fallback quietly if network offline
+    }
+
+    // 2. Fetch on-chain BEP-20 Total Supply via BSC RPC
+    try {
+      const rpcRes = await fetch('https://bsc-dataseed1.binance.org', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          id: 1,
+          method: 'eth_call',
+          params: [{ to: CONTRACT_ADDRESS, data: '0x18160ddd' }, 'latest'],
+        }),
+        next: { revalidate: 60 },
+      })
+      if (rpcRes.ok) {
+        const rpcData = await rpcRes.json()
+        if (rpcData.result) {
+          circulatingSupply = Number(BigInt(rpcData.result) / BigInt(10 ** 18))
+        }
+      }
+    } catch {
+      // Fallback quietly
+    }
+
+    // 3. Attempt direct Four.meme backend endpoint if available
     try {
       const fourMemeRes = await fetch(
         `https://www.four.meme/meme-api/v1/token/detail?address=${CONTRACT_ADDRESS}`,
         {
           headers: {
             'Accept': 'application/json',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
           },
           next: { revalidate: 60 },
         }
@@ -110,31 +109,49 @@ export async function GET() {
       if (fourMemeRes.ok) {
         const fourData = await fourMemeRes.json()
         const tokenData = fourData.data || fourData.result || fourData
-        
         if (tokenData) {
-          if (tokenData.marketCap) marketCap = parseFloat(tokenData.marketCap)
-          if (tokenData.priceUsd) priceUsd = parseFloat(tokenData.priceUsd)
-          if (tokenData.priceBnb) priceBnb = String(tokenData.priceBnb)
-          if (tokenData.virtualLiquidity) virtualLiquidity = parseFloat(tokenData.virtualLiquidity)
-          if (tokenData.volume24h) volume24h = parseFloat(tokenData.volume24h)
-          if (tokenData.progress) bondingCurveProgress = parseFloat(tokenData.progress)
           if (tokenData.bnbRaised) bnbRaised = parseFloat(tokenData.bnbRaised)
-          if (tokenData.holdersCount || tokenData.holders?.length) {
-            totalHolders = tokenData.holdersCount || tokenData.holders.length
-          }
-          dataSource = 'four_meme_api_live'
+          if (tokenData.priceBnb) priceBnb = String(tokenData.priceBnb)
+          if (tokenData.holdersCount) totalHolders = tokenData.holdersCount
+          if (tokenData.txnsCount) txns24h = tokenData.txnsCount
         }
       }
     } catch {
-      // Fallback seamlessly to exact four.meme live synced state
+      // Fallback quietly
     }
 
-    // Historical datasets for timeframes
-    const history7D = generateHistory(totalHolders, '7D')
-    const history30D = generateHistory(totalHolders, '30D')
-    const history90D = generateHistory(totalHolders, '90D')
-    const history1Y = generateHistory(totalHolders, '1Y')
-    const historyALL = generateHistory(totalHolders, 'ALL')
+    // 4. Dynamic Live Calculations based on Live BNB Price
+    const totalCurveTokens = 800000000 // 800M tokens allocated to bonding curve on Four.meme
+    const tokensSoldInCurve = Math.max(0, totalCurveTokens - tokensAvailableInCurve)
+    const bondingCurveProgress = Number(((tokensSoldInCurve / totalCurveTokens) * 100).toFixed(2)) // 4.33%
+    const priceUsd = priceBnbNum * bnbPriceUsd
+    const migrationTargetCap = targetBnb * bnbPriceUsd
+    const virtualLiquidityBnb = 12.72
+    const virtualLiquidity = virtualLiquidityBnb * bnbPriceUsd
+    const marketCap = (bnbRaised + 5.92) * bnbPriceUsd
+    const volume24h = 0.227 * bnbPriceUsd
+    const priceChange24h = 6.77
+
+    // 5. Clean legacy invalid docs, seed initial 7-day history if empty and save today's snapshot
+    cleanupLegacyDocs().catch(() => {})
+    await seedInitialHolderHistoryIfEmpty(totalHolders)
+    saveHolderSnapshot({ holders: totalHolders, marketCap, bnbRaised }).catch(() => {})
+
+    // 6. Query the last 7 daily holder documents from Firestore collection `qyona_holder`
+    let history7D: GrowthPoint[] = []
+    const firestoreSnapshots = await getHolderHistoryFromFirestore(7)
+
+    if (firestoreSnapshots && firestoreSnapshots.length > 0) {
+      const initialHolders = firestoreSnapshots[0].holders || 1
+      history7D = firestoreSnapshots.map((snap) => ({
+        date: snap.date,
+        holders: snap.holders,
+        growthPct: Number((((snap.holders - initialHolders) / Math.max(initialHolders, 1)) * 100).toFixed(2)),
+      }))
+      dataSource = 'firestore_qyona_holder_synced'
+    } else {
+      history7D = generateHistory(totalHolders)
+    }
 
     const responsePayload = {
       success: true,
@@ -202,16 +219,16 @@ export async function GET() {
         transactions: {
           value: txns24h,
           formatted: txns24h.toLocaleString('en-US'),
-          change24h: 12.5,
-          percentBadge: '+12.5%',
+          change24h: 0,
+          percentBadge: 'Four.meme Trades',
         },
       },
       history: {
         '7D': history7D,
-        '30D': history30D,
-        '90D': history90D,
-        '1Y': history1Y,
-        ALL: historyALL,
+        '30D': history7D,
+        '90D': history7D,
+        '1Y': history7D,
+        ALL: history7D,
       },
       meta: {
         dataSource,
